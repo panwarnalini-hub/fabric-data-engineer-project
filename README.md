@@ -1,6 +1,6 @@
 # Fabric Data Engineer Project
 
-A hands-on project to demonstrate skills aligned with the **Microsoft DP-700: Fabric Data Engineer Associate** certification.  
+A hands-on project to demonstrate skills aligned with the Fabric Data Engineering  
 This repository showcases data ingestion, transformation, documentation, and reporting using Microsoft Fabric and related tools.
 
 ---
