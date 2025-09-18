@@ -84,6 +84,23 @@ Result: Nalini only sees East region, Priya only sees West, etc.
 
 ---
 
+## Project Documentation
+
+- [Schema Documentation](docs/schema.md)  
+- [Transformation Summary](docs/transformations.md)  
+- [Pipeline & Orchestration](docs/pipeline.md)  
+
+## Code Repository
+
+- PySpark Notebooks  
+  - [Staging Notebook](notebooks/staging_notebook.py)  
+  - [Curated Notebook](notebooks/curated_notebook.py)  
+
+- SQL Scripts  
+  - [Create Secure View](sql/create_view.sql)  
+  - [Row-Level Security Policy](sql/rls_policy.sql)  
+
+
 **Author:** Nalini Panwar  
 **Status:** Completed (Portfolio Project)
 
