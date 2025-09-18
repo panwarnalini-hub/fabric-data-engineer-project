@@ -1,104 +1,89 @@
-# Fabric Data Engineer Project
+# 📊 Superstore Data Engineering Project – Microsoft Fabric  
 
-A hands-on project to demonstrate skills aligned with the Fabric Data Engineering  
-This repository showcases data ingestion, transformation, documentation, and reporting using Microsoft Fabric and related tools.
+## Overview  
+This project is my end-to-end **data engineering workflow** built in **Microsoft Fabric** using the well-known *Superstore Sales* dataset.  
 
----
-
-## 📂 Project Structure
-
-fabric-data-engineer-project/
-│
-├── data/ # Sample datasets (e.g., Superstore.csv)
-├── notebooks/ # Synapse/Databricks notebooks
-├── scripts/ # Pyspark scripts for transformations
-├── docs/ # Documentation (schema, architecture, etc.)
-│ └── schema.md # Data schema details
-└── README.md # Project overview
-
+I started with a simple CSV file and turned it into a fully governed analytics solution. Along the way, I set up data pipelines, created a star schema, added row-level security, and automated refreshes. The goal was to practice how real data engineering solutions are designed and operated in Fabric.  
 
 ---
 
-## 🚀 Project Workflow
+## Architecture  
+The solution follows a layered approach:  
 
-1. **Data Ingestion**
-   - Load CSV/Excel datasets into Fabric Lakehouse.
-   - Document schema (columns, datatypes, nullable).
+- **Raw Zone** → original CSV loaded into Lakehouse.  
+- **Staging Zone** → cleaned column names, fixed data types, cast `sales` into numeric.  
+- **Curated Zone** → built a star schema with:  
+  - `sales_fact`  
+  - `dim_customer` (with `region`)  
+  - `dim_product`  
+  - `dim_date` (with surrogate `date_id`, partitioned by year)  
 
-2. **Data Transformation**
-   - Clean and standardize data using PySpark/Pandas.
-   - Handle nulls, enforce datatypes, and create curated tables.
-
-3. **Data Modeling**
-   - Create star schema with Fact and Dimension tables.
-   - Document lineage and relationships.
-
-4. **Data Analysis**
-   - Run SQL queries to validate transformations.
-   - Perform aggregations and KPIs for reporting.
-
-5. **Visualization**
-   - Connect Fabric dataset to Power BI.
-   - Build dashboards to showcase insights.
+A Fabric **Data Pipeline** orchestrates the flow:  
+- Copies raw CSV into Lakehouse  
+- Runs PySpark notebook for cleaning + transformations  
+- Writes fact and dimension tables into the curated zone  
+- Refreshes **daily** and also on **file arrival events** in OneLake  
 
 ---
 
-# 📑 Schema Documentation Example
+## Data Modeling  
+I designed a **star schema** to support flexible analysis:  
 
-```text
-root
-|-- Row ID: integer (nullable = true)
-|-- Order ID: string (nullable = true)
-|-- Order Date: string (nullable = true)
-|-- Ship Date: string (nullable = true)
-|-- Ship Mode: string (nullable = true)
-|-- Customer ID: string (nullable = true)
-|-- Customer Name: string (nullable = true)
-|-- Segment: string (nullable = true)
-|-- Country: string (nullable = true)
-|-- City: string (nullable = true)
-|-- State: string (nullable = true)
-|-- Postal Code: integer (nullable = true)
-|-- Region: string (nullable = true)
-|-- Product ID: string (nullable = true)
-|-- Category: string (nullable = true)
-|-- Sub-Category: string (nullable = true)
-|-- Product Name: string (nullable = true)
-|-- Sales: double (nullable = true)
-```
+- `sales_fact` → transaction data  
+- `dim_customer` → customer details and regions  
+- `dim_product` → product category & sub-category  
+- `dim_date` → calendar with surrogate `date_id`  
+
+This allows analysis by region, product, and time.  
 
 ---
-🛠️ Tools & Technologies
 
-Microsoft Fabric (Lakehouse, Dataflows, Pipelines, Notebooks)
+## Security (RLS)  
+I implemented **Row-Level Security** in the Lakehouse SQL endpoint so users only see data for their region.  
 
-Azure Synapse Analytics
+- Created `user_region_map` table (user → region)  
+- Wrote a T-SQL function to filter rows using `USER_NAME()`  
+- Built a secure view `v_sales_secure` (fact + dims + region)  
+- Added a security policy `SalesRLS` on that view  
 
-Apache Spark (PySpark)
+Result: Nalini only sees East region, Priya only sees West, etc.  
 
-Power BI
-
-GitHub (Version control & project portfolio)
-
-🎯 Learning Goals
-
-Demonstrate end-to-end data engineering workflow in Fabric.
-
-Practice schema documentation, transformations, and reporting.
-
-Build a project portfolio for job applications and interviews.
-
-📌 Next Steps
-
- Add data cleaning notebooks
-
- Create curated dimension & fact tables
-
- Publish Power BI dashboard screenshots
-
- Write architecture diagram in docs/
-
-👩‍💻 Author: Nalini Panwar
-
-📅 Started: September 2025
 ---
+
+## Monitoring & Automation  
+- Pipelines are scheduled **daily**  
+- Event triggers run automatically when new data lands in OneLake  
+- Pipeline run history gives visibility into success/failure  
+- Can integrate with Azure Monitor / Log Analytics for proactive alerts  
+
+---
+
+## Tech Stack  
+- **Microsoft Fabric** → Lakehouse, SQL Endpoint, Pipelines  
+- **PySpark** → data transformations  
+- **Delta Lake** → storage format  
+- **T-SQL** → secure views, functions, RLS  
+- **Power BI** → for reporting (optional)  
+
+---
+
+## How to Run  
+1. Upload raw Superstore CSV into the **Raw zone**.  
+2. Run the pipeline using trigger/schedule. 
+3. Query `curated.v_sales_secure` in the SQL endpoint.  
+4. Data is automatically filtered by region using RLS.  
+
+---
+
+## What I Learned  
+- How to design **zones** in Fabric (raw → staging → curated).  
+- How to build a **star schema** with fact/dim tables.  
+- Implementing **RLS** in the SQL endpoint.  
+- Automating pipelines with **schedules and event triggers**.  
+- The difference between **Lakehouse SQL endpoint vs Warehouse** governance.  
+
+---
+
+**Author:** Nalini Panwar  
+**Status:** Completed (Portfolio Project)
+
