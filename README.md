@@ -113,7 +113,7 @@ Result: Analysts query the same view but only see their own region’s data.
 - PySpark Notebooks  
   - [Staging Notebook](notebooks/staging_notebook.py)  
   - [Curated Notebook](notebooks/curated_notebook.py)  
-  - [Incremental Load (Watermark)](notebooks/incremental_notebook.py)  
+  - [Incremental Load (Watermark)](notebooks/watermark_notebook.py)  
   - [SCD Type 2](notebooks/scd2_notebook.py)  
 
 - SQL Scripts  
