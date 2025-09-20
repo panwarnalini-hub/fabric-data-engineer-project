@@ -103,7 +103,8 @@ Result: Analysts query the same view but only see their own region’s data.
 
 ## Project Documentation
 
-- [Schema Documentation](docs/schema.md)  
+- [Schema Documentation](docs/schema_raw.md)  
+- [Curated Schema Documentation](docs/schema_curated.md)
 - [Transformation Summary](docs/transformations.md)  
 - [Pipeline & Orchestration](docs/pipeline.md)  
 
