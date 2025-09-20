@@ -47,7 +47,7 @@ Implemented **Row-Level Security** in the Lakehouse SQL endpoint so users only s
 - Built a secure view `v_sales_secure` (fact + dims + region)  
 - Added a security policy `SalesRLS` on that view  
 
-✅ Result: Analysts query the same view but only see their own region’s data.  
+Result: Analysts query the same view but only see their own region’s data.  
 
 ---
 
