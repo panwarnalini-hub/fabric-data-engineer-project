@@ -67,7 +67,7 @@ This document explains how the Microsoft Fabric pipeline was designed to orchest
 ## 5. Monitoring
 
 * Pipeline run logs tracked in **Fabric** (success/failure for each activity).
-* Real-time monitoring via **Fabric’s Eventstream** → extendable to alerting systems (e.g., Teams/Email).
+* Real-time monitoring via **Fabric’s Eventstream** : extendable to alerting systems (e.g., Teams/Email).
 
 ---
 
@@ -80,7 +80,10 @@ This document explains how the Microsoft Fabric pipeline was designed to orchest
 
 ---
 
-This pipeline ensures **repeatable, automated, incremental, and secure data flow** — from ingestion to analytics-ready tables with full history tracking.
+This pipeline ensures **repeatable, automated, incremental, and secure data flow** from ingestion to analytics-ready tables with full history tracking.
+
+In practice, I parameterized my curated notebook to handle both full and incremental loads.
+For clarity, I also created a separate watermark_notebook.py to demonstrate incremental load logic in isolation.
 
 <img width="940" height="344" alt="image" src="https://github.com/user-attachments/assets/88ac9a2a-321d-4f12-a186-aabc9706c06f" />
 
