@@ -1,4 +1,4 @@
-# Superstore Data Engineering Project – Microsoft Fabric  
+# Superstore Data Engineering Project - Microsoft Fabric  
 
 ## Overview  
 This project is my end-to-end **data engineering workflow** built in **Microsoft Fabric** using the well-known *Superstore Sales* dataset.  
