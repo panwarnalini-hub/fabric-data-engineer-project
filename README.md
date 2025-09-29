@@ -10,9 +10,9 @@ I started with a simple CSV file and turned it into a fully governed analytics s
 ## Architecture  
 The solution follows a layered approach:  
 
-- **Raw Zone** → original CSV loaded into Lakehouse.  
-- **Staging Zone** → cleaned column names, fixed data types, cast `sales` into numeric, standardized dates.  
-- **Curated Zone** → built a star schema with:  
+- **Raw Zone** - original CSV loaded into Lakehouse.  
+- **Staging Zone** - cleaned column names, fixed data types, cast `sales` into numeric, standardized dates.  
+- **Curated Zone** - built a star schema with:  
   - `sales_fact` (fact table)  
   - `dim_customer` (with `region`, SCD Type 2 applied)  
   - `dim_product`  
@@ -30,10 +30,10 @@ A Fabric **Data Pipeline** orchestrates the flow:
 ## Data Modeling  
 Designed a **star schema** to support flexible analytics:  
 
-- `sales_fact` → transaction data  
-- `dim_customer` → customer details and regions (SCD Type 2 for history)  
-- `dim_product` → product category & sub-category  
-- `dim_date` → calendar with surrogate `date_id`  
+- `sales_fact` - transaction data  
+- `dim_customer` - customer details and regions (SCD Type 2 for history)  
+- `dim_product` - product category & sub-category  
+- `dim_date` - calendar with surrogate `date_id`  
 
 This allows analysis by **region, product, customer, and time**.  
 
@@ -75,11 +75,11 @@ Result: Analysts query the same view but only see their own region’s data.
 ---
 
 ## Tech Stack  
-- **Microsoft Fabric** → Lakehouse, Pipelines, SQL Endpoint  
-- **PySpark** → data transformations, SCD, watermarking  
-- **Delta Lake** → storage format  
-- **T-SQL** → secure views, functions, RLS  
-- **Power BI** → reporting (future step)  
+- **Microsoft Fabric** - Lakehouse, Pipelines, SQL Endpoint  
+- **PySpark** - data transformations, SCD, watermarking  
+- **Delta Lake** - storage format  
+- **T-SQL** - secure views, functions, RLS  
+- **Power BI** - reporting (future step)  
 
 ---
 
@@ -87,12 +87,12 @@ Result: Analysts query the same view but only see their own region’s data.
 1. Upload raw Superstore CSV into the **Raw zone**.  
 2. Run the pipeline (full load or incremental via parameter).  
 3. Curated tables (`sales_fact`, `dim_*`) get refreshed.  
-4. Query `curated.v_sales_secure` in the SQL endpoint → regionally filtered data.  
+4. Query `curated.v_sales_secure` in the SQL endpoint - regionally filtered data.  
 
 ---
 
 ## What I Learned  
-- How to design **zones** in Fabric (raw → staging → curated).  
+- How to design **zones** in Fabric (raw - staging - curated).  
 - Building a **star schema** with surrogate keys.  
 - Implementing **incremental loads with watermarking**.  
 - Handling **SCD Type 2** for historical tracking.  
