@@ -16,7 +16,7 @@ The following transformations were applied to the raw data to ensure consistency
 
 ### 🔹 Date Columns
 - Converted `order_date` and `ship_date` from **string** (`MM/dd/yyyy`) to proper **date type**.  
-- Fixed single-digit months/days (`8/1/2017 → 08/01/2017`).  
+- Fixed single-digit months/days (`8/1/2017 - 08/01/2017`).  
 
 ### 🔹 Sales Column
 - Cast `sales` from **string** to **double** for numeric calculations.  
