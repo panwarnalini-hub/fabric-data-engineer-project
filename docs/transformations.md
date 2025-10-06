@@ -5,7 +5,7 @@ The following transformations were applied to the raw data to ensure consistency
 ### 🔹 Column Naming
 - Converted all column names to **lowercase**.  
 - Replaced spaces and brackets with **underscores**.  
-- Example: `"Order Date"` → `order_date`.  
+- Example: `"Order Date"` - `order_date`.  
 
 ### 🔹 String Columns
 - Trimmed leading/trailing whitespace.  
